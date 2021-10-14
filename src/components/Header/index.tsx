@@ -16,9 +16,8 @@ export function Header() {
             placeholder="Título do filme"
             onChange={event => setSearchtitle(event.target.value)}
             />
-          {/* <button>Avançado</button> */}
         </div>
-        <a href="/">Login Admin</a>
+        <a href="/">Adicionar</a>
       </Content>
     </Container>
   )

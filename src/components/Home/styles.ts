@@ -33,11 +33,11 @@ export const CardContent = styled.div`
   p {
     font-weight: bold;
     font-size: 1.125rem;
-    padding-top: 0.5rem;
+    margin-top: 0.5rem;
   }
 
   div {
-    padding: 0.5rem 0;
+    margin-top: 0.5rem;
 
     span {
       margin-right: 1rem;
@@ -47,26 +47,37 @@ export const CardContent = styled.div`
     }
   }
 
-  button {
-    width: 100%;
-    height: 40px;
-    margin-top: 0.5rem;
-    background: var(--yellow-500);
-    border: none;
-    border-radius: 0 0 0.25rem 0.25rem;
-    color: var(--white);
-    font-weight: bold;
-    font-size: 1.125rem;
-    transition: filter 0.2s;
-  
-    &:hover {
-      filter: brightness(0.8)
-    }
-
-  }
 `;
 
 export const PosterContainer = styled.div`
   height: 300px;
   overflow: hidden;
+`
+
+export const ButtonsContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1rem;
+
+  button {
+    width: 100px;
+    height: 40px;
+    background: var(--blue-500);
+    border: none;
+    color: var(--white);
+    font-weight: bold;
+    font-size: 1.125rem;
+    transition: filter 0.2s;
+    border-radius: 0 0.25rem 0 0.25rem;
+  
+    &:hover {
+      filter: brightness(0.8)
+    }
+
+    &:nth-child(2) {
+      background: var(--red-500);
+      border-radius: 0 0 0 0.25rem;
+    }
+  }
 `
