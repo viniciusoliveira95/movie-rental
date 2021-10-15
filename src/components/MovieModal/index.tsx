@@ -1,5 +1,5 @@
 import Modal from 'react-modal'
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { useMovies } from '../../hooks/useMovies'
 
 import { Container } from './styles'
@@ -12,13 +12,31 @@ type MovieModalProps = {
 }
 
 export function MovieModal({ isOpen, onRequestClose, movieId }: MovieModalProps) {
-  const { saveMovie } = useMovies()
+  const { saveMovie, movies } = useMovies()
   
   const [title, setTitle] = useState('')
   const [value, setValue] = useState('')
   const [genre, setGenre] = useState('')
   const [ageGroup, setAgeGroup] = useState('')
   const [posterUrl, setPosterUrl] = useState('')
+
+  useEffect(() => {
+    if (isOpen && movieId) {
+      const movie = movies.find(m => m.id === movieId)
+      
+      if (movie) {
+        setTitle(movie.title)
+        setValue(movie.value)
+        setGenre(movie.genre)
+        setAgeGroup(movie.ageGroup)
+        setPosterUrl(movie.posterUrl)
+      }
+    }
+
+    if (!movieId) {
+      cleanForm()
+    }
+  }, [isOpen, movieId, movies])
 
   async function handleSaveMovie(event: FormEvent) {
     event.preventDefault()
@@ -31,11 +49,16 @@ export function MovieModal({ isOpen, onRequestClose, movieId }: MovieModalProps)
       posterUrl
     }, movieId)
 
+    cleanForm()
+    onRequestClose()
+  }
+
+  function cleanForm() {
     setTitle('')
     setValue('')
     setGenre('')
     setAgeGroup('')
-    onRequestClose()
+    setPosterUrl('')
   }
 
   return (

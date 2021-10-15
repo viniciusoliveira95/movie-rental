@@ -8,7 +8,7 @@ export function Home() {
   const { movies } = useMovies()
   const [isMovieModalOpen, setIsMovieModalOpen] = useState(false)
   const [movieId, setMovieId] = useState('')
-  console.log(movies)
+
   function handleOpenMovieModal(movieId?: string) {
     if (movieId) {
       setMovieId(movieId)
@@ -25,7 +25,7 @@ export function Home() {
     <>
       <Header handleOpenModal={handleOpenMovieModal}/>
       <Container >
-        { movies ? (
+        { movies.length ? (
           movies.map(movie => (
             <Card key={movie.id}>
               <PosterContainer>

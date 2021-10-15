@@ -42,9 +42,9 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
 
   async function saveMovie(movieInput: MovieInput, movieId?: string) {
     if (movieId) {
-      const response = await api.put('/movies', movieInput)
+      const response = await api.put(`/movies/${movieId}`, movieInput)
       const { movie } = response.data
-      setMovies([...movies, movie])
+      setMovies([...movies.filter(m => m.id !== movieId), movie])
       
       return
     }

@@ -41,6 +41,7 @@ export function makeServer() {
           const shchemas = schema.where('movie', m => m.title.includes(title))
           return shchemas
         }
+
         return schema.all('movie')
       })
   
@@ -48,6 +49,13 @@ export function makeServer() {
         const data = JSON.parse(request.requestBody)
         
         return schema.create('movie', { ...data, createdAt: new Date() })
+      })
+
+      this.put('/movies/:id', (schema, request) => {
+        const data = JSON.parse(request.requestBody)
+        const { id } = request.params
+
+        return schema.find('movie', id).update(data)
       })
     }
   })
