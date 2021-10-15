@@ -77,7 +77,7 @@ export const ButtonsContainer = styled.div`
 
     &:nth-child(2) {
       background: var(--red-500);
-      border-radius: 0 0 0 0.25rem;
+      border-radius: 0.25rem 0 0.25rem 0;
     }
   }
 `

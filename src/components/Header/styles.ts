@@ -24,14 +24,18 @@ export const Content = styled.header`
     input {
       height: 2.5rem;
       padding: 0 2rem;
-      outline: none;
-      border: 1px solid var(--Yellow-500);
+      outline: 0;
+      border: 1px solid var(--gray-700);
       border-radius: 2rem;
       background-color: var(--gray-700);
       color: var(--white);
 
+      &::placeholder {
+        color: var(--gray-300)
+      }
+
       &:focus {
-        border-color: var(--yellow-500);
+        outline: 1px solid var(--yellow-500);
       }
     }
   }

@@ -1,8 +1,36 @@
 import { Container, Card, CardContent, PosterContainer, ButtonsContainer } from './styles'
 import poster from '../../assets/poster.jpg'
 import { Header } from '../Header'
+import { MovieModal } from '../MovieModal'
+import { useState } from 'react'
 
 export function Home() {
+  const [isMovieModalOpen, setIsMovieModalOpen] = useState(false)
+  const [modalData, setModalData] = useState({
+    id: '',
+    title: '',
+    value: '',
+    genre: '',
+    ageGroup: '',
+    posterUrl: ''
+  })
+
+  function handleOpenMovieModal() {
+    setModalData({
+      id: '1',
+      title: 'Titulo',
+      value: 'valor',
+      genre: 'genero',
+      ageGroup: '18',
+      posterUrl: 'http://image.com'
+    })
+    setIsMovieModalOpen(true)
+  }
+
+  function handleCloseMovieModal() {
+    setIsMovieModalOpen(false)
+  }
+
   return(
     <>
       <Header />
@@ -19,13 +47,15 @@ export function Home() {
               <span>Suspense</span>
             </div>
             <ButtonsContainer>
-              <button>Editar</button>
+              <button onClick={handleOpenMovieModal}>Editar</button>
               <button>Exluir</button>
             </ButtonsContainer>
           </CardContent>
         </Card>
 
       </Container>
+
+      <MovieModal modalData={modalData} isOpen={isMovieModalOpen} onRequestClose={handleCloseMovieModal}/>
     </>
   )
 }
