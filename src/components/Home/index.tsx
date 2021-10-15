@@ -8,7 +8,7 @@ export function Home() {
   const { movies } = useMovies()
   const [isMovieModalOpen, setIsMovieModalOpen] = useState(false)
   const [movieId, setMovieId] = useState('')
-
+  console.log(movies)
   function handleOpenMovieModal(movieId?: string) {
     if (movieId) {
       setMovieId(movieId)
@@ -25,25 +25,30 @@ export function Home() {
     <>
       <Header handleOpenModal={handleOpenMovieModal}/>
       <Container >
-        { movies.map(movie => (
-          <Card key={movie.id}>
-            <PosterContainer>
-              <img src={movie.posterUrl} alt="poster" />
-            </PosterContainer>
-            <CardContent>
-              <p>{movie.title}</p>
-              <div>
-                <span>Ação</span>
-                <span>Fantasia</span>
-                <span>Suspense</span>
-              </div>
-              <ButtonsContainer>
-                <button onClick={() => handleOpenMovieModal(movie.id)}>Editar</button>
-                <button>Exluir</button>
-              </ButtonsContainer>
-            </CardContent>
-          </Card>
-        )) }
+        { movies ? (
+          movies.map(movie => (
+            <Card key={movie.id}>
+              <PosterContainer>
+                <img src={movie.posterUrl} alt="poster" />
+              </PosterContainer>
+              <CardContent>
+                <p>{movie.title}</p>
+                <div>
+                  <span>Ação</span>
+                  <span>Fantasia</span>
+                  <span>Suspense</span>
+                </div>
+                <ButtonsContainer>
+                  <button onClick={() => handleOpenMovieModal(movie.id)}>Editar</button>
+                  <button>Exluir</button>
+                </ButtonsContainer>
+              </CardContent>
+            </Card>
+          )) 
+        ) :
+        <p>Não foi encontrado nenhum filme</p>
+      }
+        
 
       </Container>
 

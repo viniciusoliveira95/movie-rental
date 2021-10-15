@@ -38,10 +38,10 @@ export function makeServer() {
         const { title } = request.queryParams
 
         if (title) {
-          
+          const shchemas = schema.where('movie', m => m.title.includes(title))
+          return shchemas
         }
-
-        return this.schema.all('movie')
+        return schema.all('movie')
       })
   
       this.post('/movies', (schema, request) => {

@@ -1,13 +1,17 @@
 import { Container, Content } from './styles'
 import { DebounceInput } from 'react-debounce-input';
-import { useState } from 'react';
+import { useMovies } from '../../hooks/useMovies';
 
 type HeaderProps = {
   handleOpenModal: (movieId?: string) => void;
 }
 
 export function Header({ handleOpenModal }: HeaderProps) {
-  const [searchTitle, setSearchtitle] = useState('')
+  const { getMovieByTitle } = useMovies()
+
+  async function handleSearch(searchTitle: string) {
+    await getMovieByTitle(searchTitle)
+  }
 
   return (
     <Container>
@@ -18,7 +22,7 @@ export function Header({ handleOpenModal }: HeaderProps) {
             minLength={3}
             debounceTimeout={1000}
             placeholder="Título do filme"
-            onChange={event => setSearchtitle(event.target.value)}
+            onChange={event => handleSearch(event.target.value)}
             />
         </div>
         <button onClick={() => handleOpenModal()}>Adicionar</button>

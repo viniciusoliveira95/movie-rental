@@ -27,6 +27,7 @@ type MoviesProviderProps = {
 type MoviesContextData = {
   movies: Movie[]
   saveMovie: (movie: MovieInput, movieId?: string) => Promise<void>
+  getMovieByTitle: (tittle?: string) => Promise<void>
 }
 
 const MovieContext = createContext<MoviesContextData>({} as MoviesContextData)
@@ -40,7 +41,6 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
   }, [])
 
   async function saveMovie(movieInput: MovieInput, movieId?: string) {
-    console.log(movieId)
     if (movieId) {
       const response = await api.put('/movies', movieInput)
       const { movie } = response.data
@@ -54,8 +54,23 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
     setMovies([...movies, movie])
   }
 
+  async function getMovieByTitle(title?: string) {
+    if (title) {
+      const response = await api.get('/movies', {
+        params: { title }
+      })
+      const { movies } = response.data
+      setMovies(movies)
+
+      return
+    }
+    const response = await api.get('/movies')
+    const { movies } = response.data
+    setMovies(movies)
+  }
+
   return (
-    <MovieContext.Provider value={{ movies, saveMovie }}>
+    <MovieContext.Provider value={{ movies, saveMovie, getMovieByTitle }}>
       {children}
     </MovieContext.Provider>
   )
