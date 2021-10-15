@@ -57,6 +57,12 @@ export function makeServer() {
 
         return schema.find('movie', id).update(data)
       })
+
+      this.delete('/movies/:id', (schema, request) => {
+        const { id } = request.params
+
+        return schema.find('movie', id).destroy()
+      })
     }
   })
 

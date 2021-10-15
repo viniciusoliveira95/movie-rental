@@ -28,6 +28,7 @@ type MoviesContextData = {
   movies: Movie[]
   saveMovie: (movie: MovieInput, movieId?: string) => Promise<void>
   getMovieByTitle: (tittle?: string) => Promise<void>
+  deleteMovie: (id: string) => Promise<void>
 }
 
 const MovieContext = createContext<MoviesContextData>({} as MoviesContextData)
@@ -69,8 +70,13 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
     setMovies(movies)
   }
 
+  async function deleteMovie(id: string) {
+    await api.delete(`/movies/${id}`)
+    setMovies([...movies.filter(m => m.id !== id)])
+  }
+
   return (
-    <MovieContext.Provider value={{ movies, saveMovie, getMovieByTitle }}>
+    <MovieContext.Provider value={{ movies, saveMovie, getMovieByTitle, deleteMovie }}>
       {children}
     </MovieContext.Provider>
   )

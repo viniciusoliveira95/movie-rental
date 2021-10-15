@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { useMovies } from '../../hooks/useMovies'
 
 export function Home() {
-  const { movies } = useMovies()
+  const { movies, deleteMovie } = useMovies()
   const [isMovieModalOpen, setIsMovieModalOpen] = useState(false)
   const [movieId, setMovieId] = useState('')
 
@@ -40,7 +40,7 @@ export function Home() {
                 </div>
                 <ButtonsContainer>
                   <button onClick={() => handleOpenMovieModal(movie.id)}>Editar</button>
-                  <button>Exluir</button>
+                  <button onClick={() => deleteMovie(movie.id)}>Exluir</button>
                 </ButtonsContainer>
               </CardContent>
             </Card>
