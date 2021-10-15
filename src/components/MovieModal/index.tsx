@@ -90,7 +90,7 @@ export function MovieModal({ isOpen, onRequestClose, movieId }: MovieModalProps)
         />
 
         <input 
-          placeholder="Gêneros" 
+          placeholder="Gêneros separados por vírgula" 
           value={genre}
           onChange={event => setGenre(event.target.value)}
         />

@@ -34,9 +34,7 @@ export function Home() {
               <CardContent>
                 <p>{movie.title}</p>
                 <div>
-                  <span>Ação</span>
-                  <span>Fantasia</span>
-                  <span>Suspense</span>
+                  {movie.genre.split(', ').slice(0, 3).map(genre => ( <span key={genre}>{genre}</span> )) }
                 </div>
                 <ButtonsContainer>
                   <button onClick={() => handleOpenMovieModal(movie.id)}>Editar</button>
