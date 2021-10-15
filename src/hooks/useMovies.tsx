@@ -44,14 +44,14 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
     if (movieId) {
       const response = await api.put('/movies', movieInput)
       const { movie } = response.data
-      setMovies([...movie, movies])
+      setMovies([...movies, movie])
       
       return
     }
     
     const response = await api.post('/movies', movieInput)
     const { movie } = response.data
-    setMovies([...movie, movies])
+    setMovies([...movies, movie])
   }
 
   return (
