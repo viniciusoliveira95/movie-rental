@@ -46,7 +46,7 @@ export function Home() {
             </Card>
           )) 
         ) :
-        <p>Não foi encontrado nenhum filme</p>
+        <h4>Não foi encontrado nenhum filme</h4>
       }
         
 
