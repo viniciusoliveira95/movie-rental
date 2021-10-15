@@ -40,9 +40,12 @@ export const Content = styled.header`
     }
   }
 
-  a {
-    transition: color 0.2s;
+  button {
+    border: none;
+    color: var(--white);
+    background: var(--gray-900);
     font-weight: bold;
+    transition: color 0.2s;
   
     &:hover {
       color: var(--yellow-500);
