@@ -23,5 +23,10 @@ link do app no localhost: [http://localhost:3000](http://localhost:3000)
 
 - Layout (tá horroroso)
 - Form: usar uma lib como react-hook-form ou formik
+- Form: input de faixa etária deveria ser um select
+- Form: input de Gêneros deveria ser um mult-select
+- Form: input de valor deveria ter uma máscara
+- modal de confirmação quando se deleta um filme
 - Adicionar loadings nas requisições assíncronas
 - Componentizar melhor, principalmente a Home
+- mover o split com splice e map para mostrar os Gêneros do filme para um lugar adequado
