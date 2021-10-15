@@ -6,34 +6,23 @@ import { useState } from 'react'
 
 export function Home() {
   const [isMovieModalOpen, setIsMovieModalOpen] = useState(false)
-  const [modalData, setModalData] = useState({
-    id: '',
-    title: '',
-    value: '',
-    genre: '',
-    ageGroup: '',
-    posterUrl: ''
-  })
+  const [movieId, setMovieId] = useState('')
 
-  function handleOpenMovieModal() {
-    setModalData({
-      id: '1',
-      title: 'Titulo',
-      value: 'valor',
-      genre: 'genero',
-      ageGroup: '18',
-      posterUrl: 'http://image.com'
-    })
+  function handleOpenMovieModal(movieId?: string) {
+    if (movieId) {
+      setMovieId(movieId)
+    }
     setIsMovieModalOpen(true)
   }
 
   function handleCloseMovieModal() {
+    setMovieId('')
     setIsMovieModalOpen(false)
   }
 
   return(
     <>
-      <Header />
+      <Header handleOpenModal={handleOpenMovieModal}/>
       <Container >
         <Card>
           <PosterContainer>
@@ -47,7 +36,7 @@ export function Home() {
               <span>Suspense</span>
             </div>
             <ButtonsContainer>
-              <button onClick={handleOpenMovieModal}>Editar</button>
+              <button onClick={() => handleOpenMovieModal('id')}>Editar</button>
               <button>Exluir</button>
             </ButtonsContainer>
           </CardContent>
@@ -55,7 +44,7 @@ export function Home() {
 
       </Container>
 
-      <MovieModal modalData={modalData} isOpen={isMovieModalOpen} onRequestClose={handleCloseMovieModal}/>
+      <MovieModal movieId={movieId} isOpen={isMovieModalOpen} onRequestClose={handleCloseMovieModal}/>
     </>
   )
 }

@@ -1,10 +1,14 @@
 import { Container, Content } from './styles'
 import { DebounceInput } from 'react-debounce-input';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-export function Header() {
+type HeaderProps = {
+  handleOpenModal: (movieId?: string) => void;
+}
+
+export function Header({ handleOpenModal }: HeaderProps) {
   const [searchTitle, setSearchtitle] = useState('')
-  useEffect(() => {})
+
   return (
     <Container>
       <Content>
@@ -17,7 +21,7 @@ export function Header() {
             onChange={event => setSearchtitle(event.target.value)}
             />
         </div>
-        <a href="/">Adicionar</a>
+        <button onClick={() => handleOpenModal()}>Adicionar</button>
       </Content>
     </Container>
   )

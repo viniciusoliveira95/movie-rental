@@ -11,7 +11,14 @@ type Movie = {
   createdAt: string
 }
 
-type MovieInput = Omit<Movie, 'createdAt'>
+type MovieInput = {
+  id?: string
+  title: string
+  value: string
+  genre: string
+  ageGroup: string
+  posterUrl: string
+}
 
 type MoviesProviderProps = {
   children: ReactNode
@@ -19,7 +26,7 @@ type MoviesProviderProps = {
 
 type MoviesContextData = {
   movies: Movie[]
-  saveMovie: (movie: MovieInput) => Promise<void>
+  saveMovie: (movie: MovieInput, movieId?: string) => Promise<void>
 }
 
 const MovieContext = createContext<MoviesContextData>({} as MoviesContextData)
@@ -32,7 +39,16 @@ export function MoviesProvider({ children }: MoviesProviderProps) {
       .then(({data}) => setMovies(data.movies))
   }, [])
 
-  async function saveMovie(movieInput: MovieInput) {
+  async function saveMovie(movieInput: MovieInput, movieId?: string) {
+    console.log(movieId)
+    if (movieId) {
+      const response = await api.put('/movies', movieInput)
+      const { movie } = response.data
+      setMovies([...movie, movies])
+      
+      return
+    }
+    
     const response = await api.post('/movies', movieInput)
     const { movie } = response.data
     setMovies([...movie, movies])

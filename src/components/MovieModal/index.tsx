@@ -1,26 +1,19 @@
 import Modal from 'react-modal'
 import { FormEvent, useState } from 'react'
-
-import closeImg from '../../assets/close.svg'
+import { useMovies } from '../../hooks/useMovies'
 
 import { Container } from './styles'
-
-type MovieData = {
-  id: string
-  title: string
-  value: string
-  genre: string
-  ageGroup: string
-  posterUrl: string
-}
+import closeImg from '../../assets/close.svg'
 
 type MovieModalProps = {
   isOpen: boolean
   onRequestClose: () => void
-  modalData: MovieData
+  movieId?: string
 }
 
-export function MovieModal({ isOpen, onRequestClose, modalData }: MovieModalProps) {
+export function MovieModal({ isOpen, onRequestClose, movieId }: MovieModalProps) {
+  const { saveMovie } = useMovies()
+  
   const [title, setTitle] = useState('')
   const [value, setValue] = useState('')
   const [genre, setGenre] = useState('')
@@ -28,8 +21,16 @@ export function MovieModal({ isOpen, onRequestClose, modalData }: MovieModalProp
   const [posterUrl, setPosterUrl] = useState('')
 
   async function handleSaveMovie(event: FormEvent) {
-    console.log(modalData)
     event.preventDefault()
+    
+    await saveMovie({
+      title,
+      value,
+      genre,
+      ageGroup,
+      posterUrl
+    }, movieId)
+
     setTitle('')
     setValue('')
     setGenre('')
@@ -55,31 +56,31 @@ export function MovieModal({ isOpen, onRequestClose, modalData }: MovieModalProp
         <h2>Salvar filme</h2>
         <input 
           placeholder="Título"
-          value={modalData.title}
+          value={title}
           onChange={event => setTitle(event.target.value)}
         />
         
         <input 
           placeholder="Valor ex: 10,99"
-          value={modalData.value}
+          value={value}
           onChange={event => setValue(event.target.value)}
         />
 
         <input 
           placeholder="Gêneros" 
-          value={modalData.genre}
+          value={genre}
           onChange={event => setGenre(event.target.value)}
         />
 
         <input 
           placeholder="Faixa etária" 
-          value={modalData.ageGroup}
+          value={ageGroup}
           onChange={event => setAgeGroup(event.target.value)}
         />
 
         <input 
           placeholder="Url do poster" 
-          value={modalData.posterUrl}
+          value={posterUrl}
           onChange={event => setPosterUrl(event.target.value)}
         />
         <button type="submit">Salvar</button>
